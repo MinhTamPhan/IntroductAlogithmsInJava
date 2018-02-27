@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by MinhTam on  2/25/2018.
  */
-public class Deque <Item> implements Iterable<Item>  {
+public class Deque <Item> implements Iterable<Item>{
     private Node head = null, tail = null;
     private int size = 0;
     private class Node{
@@ -79,7 +79,10 @@ public class Deque <Item> implements Iterable<Item>  {
             throw new NoSuchElementException();
         }
         Item result = head.item;
+        Node tmp = head;
         head = head.next;
+        tmp.next = null;
+        size --;
         return result;
     }
 
@@ -98,6 +101,7 @@ public class Deque <Item> implements Iterable<Item>  {
         }
         p.next = null;
         tail = p;
+        size --;
         return result;
     }
     @Override
@@ -114,6 +118,8 @@ public class Deque <Item> implements Iterable<Item>  {
             throw new UnsupportedOperationException();
         }
         public Item next(){
+            if(!hasNext())
+                throw new NoSuchElementException();
             Item item = current.item;
             current   = current.next;
             return item;

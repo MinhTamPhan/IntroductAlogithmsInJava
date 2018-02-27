@@ -11,12 +11,13 @@ public class Permutation {
 
         RandomizedQueue<String> rq = new RandomizedQueue<>();
 
-        String[] strs = StdIn.readAllStrings();
+
 
         //StdRandom.shuffle(strs);
 
         for (int i = 0; i < k; i++) {
-            rq.enqueue(strs[i]);
+            String strs = StdIn.readString();
+            rq.enqueue(strs);
         }
         for (int i = 0; i < k; i++) {
 
