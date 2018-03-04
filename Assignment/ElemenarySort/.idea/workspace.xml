@@ -11,15 +11,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Intersection.java" pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Intersection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Intersection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="75" column="45" lean-forward="true" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
+            <state relative-caret-position="100">
+              <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="imports" expanded="true" />
                 <element signature="class#Poind2d#0;class#Intersection#0" expanded="false" />
                 <element signature="e#604#605#0" expanded="true" />
                 <element signature="e#636#637#0" expanded="true" />
@@ -31,10 +30,29 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Merge.java" pinned="false" current-in-tab="true">
+        <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Merge.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1415">
+              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <folding>
+                <element signature="method#merge#0;class#Merge#0" expanded="false" />
+                <element signature="method#sort#0;class#Merge#0" expanded="false" />
+                <element signature="method#sort#1;class#Merge#0" expanded="false" />
+                <element signature="method#less#0;class#Merge#0" expanded="false" />
+                <element signature="method#isSorted#0;class#Merge#0" expanded="false" />
+                <element signature="method#isSorted#1;class#Merge#0" expanded="false" />
+                <element signature="method#merge#1;class#Merge#0" expanded="false" />
+                <element signature="method#indexSort#0;class#Merge#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Shell.java" pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Shell.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
+            <state relative-caret-position="2225">
               <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
               <folding />
             </state>
@@ -44,8 +62,8 @@
       <file leaf-file-name="Quick.java" pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Quick.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+            <state relative-caret-position="550">
+              <caret line="174" column="14" lean-forward="false" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -99,9 +117,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -118,7 +137,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -241,14 +259,16 @@
       <workItem from="1519547071028" duration="722000" />
       <workItem from="1519651006454" duration="78000" />
       <workItem from="1519691126105" duration="1262000" />
+      <workItem from="1519826752071" duration="1438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2062000" />
+    <option name="totallyTimeSpent" value="3500000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -285,10 +305,44 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Intersection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="class#Poind2d#0;class#Intersection#0" expanded="false" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#636#637#0" expanded="true" />
+            <element signature="class#Buckets#0;class#Intersection#0" expanded="false" />
+            <element signature="e#2817#2818#0" expanded="true" />
+            <element signature="e#2858#2859#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Shell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2925">
+          <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Quick.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1250">
+          <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/src.zip!/java/lang/Comparable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1800">
@@ -297,35 +351,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Quick.java">
+    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Shell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        <state relative-caret-position="2225">
+          <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Shell.java">
+    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Quick.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
+        <state relative-caret-position="550">
+          <caret line="174" column="14" lean-forward="false" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_152/javafx-src.zip!/com/sun/scenario/effect/Merge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2935">
+          <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Intersection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="75" column="45" lean-forward="true" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
+        <state relative-caret-position="100">
+          <caret line="4" column="33" lean-forward="false" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
             <element signature="class#Poind2d#0;class#Intersection#0" expanded="false" />
             <element signature="e#604#605#0" expanded="true" />
             <element signature="e#636#637#0" expanded="true" />
             <element signature="class#Buckets#0;class#Intersection#0" expanded="false" />
             <element signature="e#2817#2818#0" expanded="true" />
             <element signature="e#2858#2859#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/../../library/algs4.jar!/edu/princeton/cs/algs4/Merge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1415">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <element signature="method#merge#0;class#Merge#0" expanded="false" />
+            <element signature="method#sort#0;class#Merge#0" expanded="false" />
+            <element signature="method#sort#1;class#Merge#0" expanded="false" />
+            <element signature="method#less#0;class#Merge#0" expanded="false" />
+            <element signature="method#isSorted#0;class#Merge#0" expanded="false" />
+            <element signature="method#isSorted#1;class#Merge#0" expanded="false" />
+            <element signature="method#merge#1;class#Merge#0" expanded="false" />
+            <element signature="method#indexSort#0;class#Merge#0" expanded="false" />
           </folding>
         </state>
       </provider>
