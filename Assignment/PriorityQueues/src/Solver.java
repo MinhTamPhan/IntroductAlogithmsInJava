@@ -1,85 +1,131 @@
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by MinhTam on  3/18/2018.
  */
 public class Solver {
-
-    private class PriorityBoard implements Comparable<PriorityBoard> {
-        Board board;
-        int priority;
-        private PriorityBoard(Board board, int priority){
+    private final Stack<Board> boards;
+    private int moves;
+    private boolean isSolvable;
+    private class SearchNode implements Comparable<SearchNode> {
+        private Board board;
+        private int moves;
+        private SearchNode previous;
+        private int cachedPriority = -1;
+        SearchNode(Board board, int moves, SearchNode previous) {
             this.board = board;
-            this.priority = priority;
+            this.moves = moves;
+            this.previous = previous;
         }
 
+        private int priority() {
+            if (cachedPriority == -1) {
+                cachedPriority = moves + board.manhattan();
+            }
+            return cachedPriority;
+        }
         @Override
-        public int compareTo(PriorityBoard o) {
-            if (priority < o.priority)
-                return  -1;
-            if (priority > o.priority)
-                return  1;
+        public int compareTo(SearchNode that) {
+            if (this.priority() < that.priority()) {
+                return -1;
+            }
+            if (this.priority() > that.priority()) {
+                return +1;
+            }
             return 0;
         }
     }
-    private Stack<Board> solution;
-    // find a solution to the initial board (using the A* algorithm)
-    public Solver(Board initial) {
-        solution = new Stack<>();
-        PriorityBoard board = new PriorityBoard(initial, initial.manhattan());
-        runAStar(board, board.board);
-    }
-    private Iterable<Board> runAStar(PriorityBoard priorityBoard, Board start){
-        MinPQ<PriorityBoard> pq = new MinPQ<>();
-        HashMap<Board, Board> previous = new HashMap<>();
-        HashMap<Board, Integer> move = new HashMap<Board, Integer>();
-        move.put(priorityBoard.board, 0);
-        pq.insert(priorityBoard);
-        Board goal = null;
-        while (!pq.isEmpty()){
-            PriorityBoard i = pq.delMin();
-            //StdOut.println(i.board);
-            if(i.board.isGoal()){
-                goal = i.board;
-                break;
-            }
-            //int t = i.manhattan() + move.get(i);
-            Iterable<Board> listNeighbors = i.board.neighbors();
-            listNeighbors.forEach(board -> {
-                if(!move.containsKey(board))
-                    pq.insert(new PriorityBoard(board,
-                        board.manhattan() + move.get(i.board)));
-                move.put(board, move.get(i.board) + 1);
-                previous.put(board, i.board);
-            });
-        }
-        solution.push(goal);
-        while (previous.get(goal) != start){
-            goal = previous.get(goal);
-            solution.push(goal);
-        }
-        return solution;
-    }
-    // is the initial board solvable?
-    public boolean isSolvable() {
-        return solution.size() > 0;
-    }
-    // min number of moves to solve initial board; -1 if unsolvable
-    public int moves() {
-        return solution.size();
-    }
-    // sequence of boards in a shortest solution; null if unsolvable
-    public Iterable<Board> solution() {
-        return solution;
-    }
-    // solve a slider puzzle (given below)
-    public static void main(String[] args) {
 
+    /*
+     * find a solution to the initial board (using the A* algorithm)
+     */
+    public Solver(Board initial) {
+        boards = new Stack<Board>();
+        if (initial.isGoal()) {
+            isSolvable = true;
+            this.boards.push(initial);
+            return;
+        }
+        if (initial.twin().isGoal()) {
+            isSolvable = false;
+            return;
+        }
+        MinPQ<SearchNode> minPQ = new MinPQ<SearchNode>();
+        MinPQ<SearchNode> minPQTwin = new MinPQ<SearchNode>();
+        moves = 0;
+        Board board = initial;
+        Board boardTwin = initial.twin();
+        SearchNode node = new SearchNode(board, 0, null);
+        SearchNode nodeTwin = new SearchNode(boardTwin, 0, null);
+        minPQ.insert(node);
+        minPQTwin.insert(nodeTwin);
+        while (moves < 100) {
+            node = minPQ.delMin();
+            nodeTwin = minPQTwin.delMin();
+            board = node.board;
+            boardTwin = nodeTwin.board;
+            if (boardTwin.isGoal()) {
+                isSolvable = false;
+                return;
+            }
+            if (board.isGoal()) {
+                isSolvable = true;
+                this.boards.push(board);
+                while (node.previous != null) {
+                    node = node.previous;
+                    this.boards.push(node.board);
+                }
+                return;
+            }
+            node.moves++;
+            nodeTwin.moves++;
+            Iterable<Board> neighbors = board.neighbors();
+            for (Board neighbor : neighbors) {
+                if (node.previous != null
+                        && neighbor.equals(node.previous.board)) {
+                    continue;
+                }
+                SearchNode newNode = new SearchNode(neighbor, node.moves, node);
+                minPQ.insert(newNode);
+            }
+            Iterable<Board> neighborsTwin = boardTwin.neighbors();
+            for (Board neighbor : neighborsTwin) {
+                if (nodeTwin.previous != null
+                        && neighbor.equals(nodeTwin.previous.board)) {
+                    continue;
+                }
+                SearchNode newNode = new SearchNode(neighbor, nodeTwin.moves,
+                        nodeTwin);
+                minPQTwin.insert(newNode);
+            }
+        }
     }
+    /*
+     * is the initial board solvable?
+     */
+    public boolean isSolvable() {
+        return isSolvable;
+    }
+    /*
+     * min number of moves to solve initial board; -1 if no solution
+     */
+    public int moves() {
+        if (isSolvable) {
+            return boards.size() - 1;
+        } else {
+            return -1;
+        }
+    }
+    /*
+     * sequence of boards in a shortest solution; null if no solution
+     */
+    public Iterable<Board> solution() {
+        if (isSolvable) {
+            return boards;
+        } else {
+            return null;
+        }
+    }
+
 }

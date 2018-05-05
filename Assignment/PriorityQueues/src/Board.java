@@ -1,136 +1,197 @@
 /**
  * Created by MinhTam on  3/18/2018.
  */
-import edu.princeton.cs.algs4.Point2D;
+
 import edu.princeton.cs.algs4.Stack;
-import edu.princeton.cs.algs4.StdRandom;
+
 public class Board {
-    private Point2D board[];
-    private int N;
-    // construct a board from an n-by-n array of blocks
-    // (where blocks[i][j] = block in row i, column j)
+    private final int N;
+    private final int[][] tiles;
+
+    /*
+     * construct a board from an N-by-N array of blocks (where blocks[i][j] =
+     * block in row i, column j)
+     */
     public Board(int[][] blocks) {
-        if (blocks == null)
-            throw new IllegalArgumentException();
         N = blocks.length;
-        board = new Point2D[N * N];
-        for (int i = 0; i < blocks.length; i++) {
-            for (int j = 0; j < blocks[0].length; j++) {
-                int val = blocks[i][j];
-                board[i] = new Point2D(val % N, val / N) ;
+        tiles = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                tiles[i][j] = blocks[i][j];
             }
         }
     }
-    // board dimension n
-    public int dimension() {
-        return  N;
-    }
-    // number of blocks out of place
-    public int hamming()  {
-        int count = 0;
-        for (int i = 0; i < N * N; i++) {
-            if(board[i].x() != i % N || board[i].y() != i / N )
-                count++;
+
+    private int[][] createGoalBoard() {
+        int[][] array = new int[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                array[i][j] = goalValueAt(i, j);
+            }
         }
-        return  count;
+        return array;
     }
-    // sum of Manhattan distances between blocks and goal
-    public int manhattan() {
+    /*
+     * board dimension N
+     */
+    public int dimension() {
+        return N;
+    }
+    /*
+     * number of blocks out of place
+     */
+    public int hamming() {
         int sum = 0;
-        for (int i = 0; i < N * N; i++) {
-            int row = (i) / N;
-            int col = (i) % N;
-            sum += Math.abs(row - board[i].y()) + Math.abs(col - board[i].x());
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (tiles[i][j] != goalValueAt(i, j) && !isEnd(i, j)) {
+                    sum++;
+                }
+            }
         }
         return sum;
     }
-    // is this board the goal board?
+    private int goalValueAt(int i, int j) {
+        if (isEnd(i, j)) {
+            return 0;
+        }
+        return 1 + i * N + j;
+    }
+    private boolean isEnd(int i, int j) {
+        return i == N - 1 && j == N - 1;
+    }
+    /*
+     * sum of Manhattan distances between blocks and goal
+     */
+    public int manhattan() {
+        int sum = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                int value = tiles[i][j];
+                if (value != 0 && value != goalValueAt(i, j)) {
+                    int initialX = (value - 1) / N;
+                    int initialY = value - 1 - initialX * N;
+                    int distance = Math.abs(i - initialX)
+                            + Math.abs(j - initialY);
+                    sum += distance;
+                }
+            }
+        }
+        return sum;
+    }
+    /*
+     * is this board the goal board?
+     */
     public boolean isGoal() {
-        return hamming() == 0;
+        return tilesEquals(this.tiles, createGoalBoard());
     }
-    // a board that is obtained by exchanging any pair of blocks
-    public Board twin() {
-        int n = 0,m = 0;
-        while (n == m){
-            n = StdRandom.uniform(0, 9);
-            m = StdRandom.uniform(0, 9);
-        }
-        while (board[n/3][n%3] == 0){
-            n = StdRandom.uniform(0, 9);
-        }
-        while (board[m/3][m%3] == 0){
-            m = StdRandom.uniform(0, 9);
-        }
-        int[][] result = board.clone();
-        int t = result[m/3][m%3];
-        result[m/3][m%3] = result[n/3][n%3];
-        result[n/3][n%3] = t;
-        return  new Board(result);
-    }
-    // does this board equal y?
-    public boolean equals(Object y) {
-        if (!(y instanceof Board)) {
-            throw new IllegalArgumentException();
-        }
-        Board that = (Board)y;
-        for (int i = 0; i < N * N; i++) {
-            if (!board[i].equals(that.board[i]))
-                return false;
+
+    private boolean tilesEquals(int[][] first, int[][] second) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (first[i][j] != second[i][j]) {
+                    return false;
+                }
+            }
         }
         return true;
     }
-    // all neighboring boards
-    public Iterable<Board> neighbors() {
-        int row = 0,col = 0;
-        for (int i = 0; i < N * N; i++) {
-            if(board[i].x() == 0 && board[i].y() == 0){
-                row = i / N;
-                col = i % N;
+    /*
+     * a board obtained by exchanging two adjacent blocks in the same row
+     */
+    public Board twin() {
+        Board board = new Board(tiles);
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N - 1; j++) {
+                if (tiles[i][j] != 0 && tiles[i][j + 1] != 0) {
+                    board.swap(i, j, i, j + 1);
+                    return board;
+                }
             }
         }
-        Stack<Board> result = new Stack<>();
-        int l = col - 1, r = col + 1;
-        int top = row - 1, down = row + 1;
-        if (l >= 0){
-            Board neighbor = new Board(board);
-            neighbor.board[row][col] = neighbor.board[row][l];
-            neighbor.board[row][l] = 0;
-            result.push(neighbor);
-        }
-        if (top >= 0){
-            Board neighbor = this.clone();
-            neighbor.board[row][col] = neighbor.board[top][col];
-            neighbor.board[top][col] = 0;
-            result.push(neighbor);
-        }
-        if (r < N){
-            Board neighbor = new Board(board.clone());
-            neighbor.board[row][col] = neighbor.board[row][r];
-            neighbor.board[row][r] = 0;
-            result.push(neighbor);
-        }
-        if (down < N){
-            Board neighbor = new Board(board.clone());
-            neighbor.board[row][col] = neighbor.board[down][col];
-            neighbor.board[down][col] = 0;
-            result.push(neighbor);
-        }
-        return  result;
+        return board;
     }
-    // string representation of this board (in the output format specified below)
+    private boolean swap(int i, int j, int it, int jt) {
+        if (it < 0 || it >= N || jt < 0 || jt >= N) {
+            return false;
+        }
+        int temp = tiles[i][j];
+        tiles[i][j] = tiles[it][jt];
+        tiles[it][jt] = temp;
+        return true;
+    }
+    /*
+     * does this board equal x? (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public boolean equals(Object x) {
+        if (x == this)
+            return true;
+        if (x == null)
+            return false;
+        if (x.getClass() != this.getClass())
+            return false;
+        Board that = (Board) x;
+        return this.N == that.N && tilesEquals(this.tiles, that.tiles);
+    }
+    /*
+     * all neighboring boards
+     */
+    public Iterable<Board> neighbors() {
+        int i0 = 0, j0 = 0;
+        boolean found = false;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (tiles[i][j] == 0) {
+                    i0 = i;
+                    j0 = j;
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+        }
+        Stack<Board> boards = new Stack<Board>();
+        Board board = new Board(tiles);
+        boolean isNeighbor = board.swap(i0, j0, i0 - 1, j0);
+        if (isNeighbor) {
+            boards.push(board);
+        }
+        board = new Board(tiles);
+        isNeighbor = board.swap(i0, j0, i0, j0 - 1);
+        if (isNeighbor) {
+            boards.push(board);
+        }
+        board = new Board(tiles);
+        isNeighbor = board.swap(i0, j0, i0 + 1, j0);
+        if (isNeighbor) {
+            boards.push(board);
+        }
+        board = new Board(tiles);
+        isNeighbor = board.swap(i0, j0, i0, j0 + 1);
+        if (isNeighbor) {
+            boards.push(board);
+        }
+        return boards;
+    }
+
+    /*
+     * string representation of the board (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", board[i][j]));
+                s.append(String.format("%2d ", tiles[i][j]));
             }
             s.append("\n");
         }
         return s.toString();
-    }
-    // unit tests (not graded)
-    public static void main(String[] args) {
-
     }
 }
